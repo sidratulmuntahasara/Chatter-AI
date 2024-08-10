@@ -1,15 +1,21 @@
 import { NextResponse } from 'next/server'; // Import NextResponse from Next.js for handling responses
-import OpenAI from 'openai'; // Import OpenAI library for interacting with the OpenAI API
+//import OpenAI from 'openai'; // Import OpenAI library for interacting with the OpenAI API
+//import { HfInference } from "@huggingface/inference";
+import Together from "together-ai";
 
 // System prompt for the AI, providing guidelines on how to respond to users
 const systemPrompt = "Use your own system prompt here"; // Add your system prompt here
+//const inference = new HfInference("hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
 // POST function to handle incoming requests
 export async function POST(req) {
   try {
-    const openai = new OpenAI({
-      baseURL: "https://openrouter.ai/api/v1",
-      apiKey: process.env.OPENROUTER_API_KEY, // Use process.env to access environment variables securely
+    //const openai = new OpenAI
+    const together = new Together({
+      //baseURL: "https://openrouter.ai/api/v1",
+      //apiKey: process.env.OPENROUTER_API_KEY, // Use process.env to access environment variables securely
+      baseURL: "https://api.together.xyz/v1",
+      apiKey: process.env.TOGETHER_API_KEY,
       defaultHeaders: {
         "HTTP-Referer": 'http://localhost:3000/', // Optional, for including your app on openrouter.ai rankings.
         "X-Title": 'ChatterAI', // Optional. Shows in rankings on openrouter.ai.
@@ -25,9 +31,11 @@ export async function POST(req) {
     }
 
     // Create a chat completion request to the OpenAI API
-    const completion = await openai.chat.completions.create({
+    //const completion = await openai.chat.completions.create
+    const completion = await together.chat.completions.create({
       messages: [{ role: 'system', content: systemPrompt }, ...data], // Include the system prompt and user messages
-      model: 'meta-llama/llama-3.1-8b-instruct:free', // Specify the model to use
+      //model: 'meta-llama/llama-3.1-8b-instruct:free', // Specify the model to use
+      model: "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
       stream: true, // Enable streaming responses
     });
 
