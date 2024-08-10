@@ -2,12 +2,13 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Box, Button, TextField } from '@mui/material'
+import { firestore } from '../firebase';
 
 export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I'm the BetaHub support assistant. How can I help you today?",
+      content: "Hi! I'm ChatterAI, the BetaHub support assistant. How can I help you today?",
     },
   ])
   const [message, setMessage] = useState('')
