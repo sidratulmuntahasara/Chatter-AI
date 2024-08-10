@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Box, Button, TextField } from '@mui/material'
-import { firestore } from '../firebase';
 
 export default function Home() {
   const [messages, setMessages] = useState([
