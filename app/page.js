@@ -1,7 +1,7 @@
 'use client'
 
-import { Box, Button, Stack, TextField } from '@mui/material'
 import { useState, useRef, useEffect } from 'react'
+import { Box, Button, TextField } from '@mui/material'
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -82,71 +82,73 @@ export default function Home() {
   }
 
   return (
-    <Box
-      width="100vw"
-      height="100vh"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Stack
-        direction={'column'}
-        width="500px"
-        height="700px"
-        border="1px solid black"
-        p={2}
-        spacing={3}
-      >
-        <Stack
-          direction={'column'}
-          spacing={2}
-          flexGrow={1}
-          overflow="auto"
-          maxHeight="100%"
-        >
+    <div className="w-screen h-screen flex flex-col justify-center items-center bg-gradient-to-br from-slate-950 via-gray-600 to-slate-400">
+      <div className="flex flex-col w-full max-w-lg h-[700px] border border-gray-300 shadow-2xl shadow-slate-600 rounded-3xl bg-gray-800 p-6">
+        <div className="flex flex-col space-y-4 flex-grow overflow-auto max-h-full">
           {messages.map((message, index) => (
-            <Box
+            <div
               key={index}
-              display="flex"
-              justifyContent={
-                message.role === 'assistant' ? 'flex-start' : 'flex-end'
-              }
+              className={`flex ${
+                message.role === 'assistant' ? 'justify-start' : 'justify-end'
+              }`}
             >
               <Box
-                bgcolor={
+                className={`rounded-lg p-4 max-w-xs md:max-w-sm text-sm ${
                   message.role === 'assistant'
-                    ? 'primary.main'
-                    : 'secondary.main'
-                }
-                color="white"
-                borderRadius={16}
-                p={3}
+                    ? 'bg-indigo-500 text-white'
+                    : 'bg-white text-black'
+                }`}
               >
                 {message.content}
               </Box>
-            </Box>
+            </div>
           ))}
           <div ref={messagesEndRef} />
-        </Stack>
-        <Stack direction={'row'} spacing={2}>
-          <TextField
-            label="Message"
+        </div>
+        <div className="flex space-x-2 mt-6 ">
+          <TextField className='text-white'
+            label="Type your message..."
             fullWidth
+            variant="outlined"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             disabled={isLoading}
+            InputLabelProps={{
+              style: { color: 'rgba(255, 255, 255, 0.9)' } // Brighter label color
+            }}
+            InputProps={{
+              className: 'focus:ring-2 focus:ring-slate-200 rounded-full text-white',
+              style: { color: 'rgba(255, 255, 255, 0.9)' }, // Brighter text color
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'rgba(189, 190, 244, 0.7)', // Bright border color
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'rgba(189, 190, 244, 1)', // Even brighter on focus
+                },
+                '&.Mui-disabled fieldset': {
+                  borderColor: 'rgba(189, 190, 244, 0.3)', // Light border when disabled
+                },
+              },
+            }}
           />
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
+            className={`rounded text-sm font-medium transition-colors duration-300 ${
+              isLoading
+                ? 'bg-indigo-300'
+                : 'bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600'
+            } text-white`}
             onClick={sendMessage}
             disabled={isLoading}
           >
             {isLoading ? 'Sending...' : 'Send'}
           </Button>
-        </Stack>
-      </Stack>
-    </Box>
+        </div>
+      </div>
+    </div>
   )
 }
