@@ -5,8 +5,8 @@ import { Analytics } from "@vercel/analytics/react"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "ChatterAI",
-  description: "Your personal AI assistant from BetaHub made by Sara & Team",
+  title: "Rick Astley Bot",
+  description: "Rick Astley Recommends Movies using LLM lol",
 };
 
 export default function RootLayout({ children }) {
