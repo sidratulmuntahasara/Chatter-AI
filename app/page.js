@@ -2,12 +2,13 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Box, Button, TextField } from '@mui/material'
+import Image from 'next/image'
 
 export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I'm ChatterAI, the BetaHub support assistant. How can I help you today?",
+      content: "Hi! I'm Rick Astley, woohooo, never gonna give you up! How can I help you today?",
     },
   ])
   const [message, setMessage] = useState('')
@@ -83,6 +84,7 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center bg-gradient-to-br from-slate-950 via-gray-600 to-slate-400">
+      <div className="flex float-left"><Image src={'/download.png'} height={70} width={80} className=' rounded-full aspect-square'></Image></div>
       <div className="flex flex-col w-full max-w-lg h-[700px] border border-gray-300 shadow-2xl shadow-slate-600 rounded-3xl bg-gray-800 p-6">
         <div className="flex flex-col space-y-4 flex-grow overflow-auto max-h-full">
           {messages.map((message, index) => (
